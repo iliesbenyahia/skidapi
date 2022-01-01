@@ -1,8 +1,6 @@
-//contain instance of user model  
-const { use } = require('../app');
 const userModel = require('../models/user');  
 
-module.exports = {
+module.exports = { 
     async fetchAll(){
         const users = await userModel.findAll();
         console.log(users);
