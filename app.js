@@ -2,10 +2,11 @@ const express = require('express')
 const bodyParser = require("body-parser");
 const app = express()
 const port = process.env.PORT || 3000
-const {Client } = require('pg') 
+/* const {Client } = require('pg') 
 const db = require('./db').db 
+const User  = require('./models/user').User */
 const sequelize = require('./db').sequelize 
-const User  = require('./models/user').User
+
 const userRoutes = require('./routes/users')
 let users
 
