@@ -1,9 +1,9 @@
-var express =  require('express');  
-var userControler = require('../controller/userController');  
+const express =  require('express');  
+const userControler = require('../controller/userController.js');  
 
 // express.Router is a class to create route handlers  
 //router will contain the Router instance.  
-var router = express.Router();  
+const router = express.Router();  
   
 router.get('/',async (req,res)=>{
     res.send(await userControler.fetchAll());
@@ -15,7 +15,7 @@ router.get('/',async (req,res)=>{
   
  router.post('/', async (req,res)=>{
     
-     res.send( await userControler.create(req.body)); 
+     res.send(await userControler.create(req.body)); 
     //res.send(await userControler.create(req.params));
 })  
 //this route will be executed on /user/add  
