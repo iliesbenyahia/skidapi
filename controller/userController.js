@@ -1,29 +1,39 @@
-const userModel = require('../models/user');  
+const userModel = require('../models/user');
 
 module.exports = { 
-    async fetchAll(){
-        const users = await userModel.findAll();
-        console.log(users);
-        return JSON.stringify(users);
+    fetchAll : async (req, res, next) => {
+        try{
+            const users = await userModel.findAll();
+            res.json(users);
+        }catch(error){
+            next(error);
+        }
     },
 
-    async fetch(id){
-        const user = await userModel.findByPk(id);
-        return JSON.stringify(user);
+    fetch : async (req, res, next) => {
+        try {
+            const user = await userModel.findByPk(req.params.id);
+            res.json(user);
+        }catch(error){
+            next(error);
+        }
     },
 
-    async create(data){
-        console.log(data)
-        const user = await userModel.create(
-            {
-                firstName: data.firstName,
-                lastName: data.lastName,
-                mail: data.mail,
-                password: data.password,
-                login: data.login
-            }
-        ) 
-
+    create : async (req,res, next) => {
+        try {
+            const user = await userModel.create(
+                {
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    mail: req.body.mail,
+                    password: req.body.password
+                }
+            )
+            res.status(200).json(user.id);
+        }
+        catch(error){
+            next(error);
+        }
     }
 
 };  
