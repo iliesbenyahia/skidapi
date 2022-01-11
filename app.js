@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000
 const db = require('./db').db 
 const User  = require('./models/user').User */
 const sequelize = require('./db').sequelize 
-
+const errorModule = require('./errorHandler')
 const userRoutes = require('./routes/users')
 let users
 
@@ -33,8 +33,11 @@ connection();
 //in that the rquest will be directed to the specific route.   
 
 
-app.use('/user', userRoutes);  
-  
+app.use('/user', userRoutes)
+
+app.use((err, req, res, next) => {
+  errorModule.errorHandler(err,req,res,next)
+})
 //showing the port on which server is running  
 app.listen(port,()=>console.log(`server running at port ${port}`));
 
