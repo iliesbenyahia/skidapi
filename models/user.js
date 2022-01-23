@@ -15,6 +15,10 @@ const User = sequelize.define('User', {
   },
   password: {
     type: DataTypes.STRING
+  },
+  status: {
+    type : DataTypes.BOOLEAN,
+    defaultValue: true
   }
 }); 
 

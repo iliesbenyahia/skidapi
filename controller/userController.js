@@ -1,6 +1,6 @@
 const userModel = require('../models/user');
 
-module.exports = { 
+module.exports = {
     fetchAll : async (req, res, next) => {
         try{
             const users = await userModel.findAll();
@@ -36,4 +36,4 @@ module.exports = {
         }
     }
 
-};  
+};
