@@ -11,9 +11,10 @@ const sequelize = require('./db').sequelize
 const errorModule = require('./errorHandler')
 
 //Routes
-const userRoutes = require('./routes/users')
-const ressourcesRoutes = require('./routes/ressources')
-
+const userRoutes = require('./routes/users');
+const ressourcesRoutes = require('./routes/ressources');
+const loginRoutes = require('./routes/login');
+const authRoutes = require('./routes/authentification');
 
 const Associations = require('./models/associations');
 
@@ -45,9 +46,10 @@ connection();
 //the request having /user/ will be send to the userRoutes module.  
 //in that the rquest will be directed to the specific route.   
 
-
+app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/ressources', ressourcesRoutes);
+app.use('/login', loginRoutes);
 app.use((err, req, res, next) => {
   errorModule.errorHandler(err,req,res,next)
 })
