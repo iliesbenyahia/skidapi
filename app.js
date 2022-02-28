@@ -9,6 +9,7 @@ const db = require('./db').db
 const User  = require('./models/user').User */
 const sequelize = require('./db').sequelize 
 const errorModule = require('./errorHandler')
+const cors = require("cors");
 
 //Routes
 const userRoutes = require('./routes/users')
@@ -24,8 +25,10 @@ aws.config.region = 'eu-west-3';
 app.set('views', './views');
 app.use(express.static('./public'));
 app.engine('html', require('ejs').renderFile);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 async function connection (){
 try {
   await sequelize.authenticate();
