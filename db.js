@@ -22,18 +22,18 @@ if(process.env.MODE == 'PROD'){
 }
 else{
   client = new Client({
-    user : 'postgres',
-    host : 'localhost',
+    user : 'root',
+    host : '172.18.0.3',
     database : 'ressourcesrel',
     port : 5432,
     password : 'root'
   });
   sequelize = new Sequelize(
     'ressourcesrel', 
-    'postgres', 
+    'root',
     'root', 
     {
-     host: 'localhost',
+     host: '172.18.0.2',
      dialect: 'postgres'
     }
  ); 

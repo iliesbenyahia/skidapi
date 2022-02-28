@@ -42,7 +42,6 @@ module.exports = {
         try{
             const s3 = new aws.S3();
             const fileName = req.body.fileName;
-            const fileType = req.body.fileType;
             const s3Params = {
                 Bucket: process.env.S3_BUCKET_NAME,
                 Key: fileName,
