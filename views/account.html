@@ -76,7 +76,7 @@
     request.
   */
 
-
+  // https://ressourcesrel.s3.eu-west-3.amazonaws.com/Capture%20d%E2%80%99%C3%A9cran%202022-01-13%20185956.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQY2VFE7WPUQ754EO%2F20220312%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20220312T100249Z&X-Amz-Expires=60&X-Amz-Signature=45599ef53337290e87cd9dc37f0e1f4e34261f61b7e32e8dfbf1d43586378d47&X-Amz-SignedHeaders=host
   function getSignedRequest(file){
     const xhr = new XMLHttpRequest();
     let params = 'fileName='+file.name+'&fileType='+file.type;
@@ -109,7 +109,9 @@
     if(file == null){
       return alert('No file selected.');
     }
+    console.log(file);
     getSignedRequest(file);
+
   }
 
   /*

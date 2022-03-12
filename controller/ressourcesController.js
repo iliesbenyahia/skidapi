@@ -1,4 +1,6 @@
 const ressourcesModel = require('../models/ressources');
+const ressourceCategoryModel = require('../models/ressourceCategory')
+
 const aws = require("aws-sdk");
 const userModel = require("../models/user");
 aws.config.region = 'eu-west-3';
@@ -38,6 +40,7 @@ module.exports = {
         }
     },
 
+
     getUploadURL: async (req, res, next) => {
         try{
             const s3 = new aws.S3();
@@ -62,6 +65,7 @@ module.exports = {
         }catch (error){
             next(error);
         }
-    }
+    },
+
 }
 
