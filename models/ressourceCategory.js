@@ -2,10 +2,10 @@ const db = require('../db')
 const sequelize = db.sequelize
 const DataTypes = db.DataTypes
 
-const Relationship = sequelize.define('Relationship', {
-    type: {
+const RessourceCategory = sequelize.define('RessourceCategory', {
+    title: {
         type: DataTypes.STRING
     },
 });
 
-module.exports = Relationship;
+module.exports = RessourceCategory;

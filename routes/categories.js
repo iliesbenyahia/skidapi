@@ -1,5 +1,4 @@
-const express =  require('express');  
-const ressourcesController = require('../controller/ressourcesController');
+const express =  require('express');
 const ressourceCategoryController = require('../controller/ressourceCategoriesController');
 // express.Router is a class to create route handlers  
 //router will contain the Router instance.  
@@ -15,12 +14,14 @@ router.get('/:id', ressourcesController .fetch);
 */
 
 // Ressources
+/*
 router.post('/upload', ressourcesController.getUploadURL);
 router.post('/', ressourcesController.create);
 router.get('/', ressourcesController.fetchAll);
 router.get('/:id',ressourcesController.fetch);
-
-
+*/
+router.get('/', ressourceCategoryController.fetchAll);
+router.post('/', ressourceCategoryController.create);
 /*
  router.get('/:id',async (req,res)=>{
      res.send(await userController.fetch(req.params.id));

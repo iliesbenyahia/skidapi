@@ -9,9 +9,6 @@ const Ressources = sequelize.define('Ressources', {
     description: {
         type: DataTypes.STRING
     },
-    mimetype : {
-        type : DataTypes.STRING
-    },
     url : {
         type : DataTypes.STRING
     },

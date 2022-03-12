@@ -14,6 +14,7 @@ const cors = require("cors");
 //Routes
 const userRoutes = require('./routes/users')
 const ressourcesRoutes = require('./routes/ressources')
+const ressourceCategoriesRoutes = require('./routes/categories')
 
 
 const Associations = require('./models/associations');
@@ -33,8 +34,8 @@ async function connection (){
 try {
   await sequelize.authenticate();
   console.log('Connection has been established successfully.');
-  //await sequelize.sync({force: true});
-  await sequelize.sync();
+  await sequelize.sync({force: true});
+  //await sequelize.sync();
 } 
 catch (error) {
   console.error('Unable to connect to the database:', error); 
@@ -51,6 +52,7 @@ connection();
 
 app.use('/user', userRoutes);
 app.use('/ressources', ressourcesRoutes);
+app.use('/categories', ressourceCategoriesRoutes);
 app.use((err, req, res, next) => {
   errorModule.errorHandler(err,req,res,next)
 })

@@ -6,6 +6,7 @@ const DataTypes = db.DataTypes
 const User = require('./user');
 const Ressources = require('./ressources');
 const Relationships = require('./relationships');
+const RessourceCategory = require('./ressourceCategory');
 
 function setAssociation(){
 
@@ -15,6 +16,8 @@ function setAssociation(){
 // Ressources - Relationships
     Ressources.belongsToMany(Relationships, {through: 'RessourcesRelationships'});
     Relationships.belongsToMany(Ressources, {through: 'RessourcesRelationships'});
+// Ressources - Category
+    Ressources.belongsTo(RessourceCategory);
 }
 
 module.exports = setAssociation();
