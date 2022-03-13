@@ -4,7 +4,8 @@ const DataTypes = db.DataTypes
 
 const Relationship = sequelize.define('Relationship', {
     type: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
     },
 });
 

@@ -15,6 +15,7 @@ const cors = require("cors");
 const userRoutes = require('./routes/users')
 const ressourcesRoutes = require('./routes/ressources')
 const ressourceCategoriesRoutes = require('./routes/categories')
+const relationshipsRoutes = require('./routes/relations')
 
 
 const Associations = require('./models/associations');
@@ -53,6 +54,8 @@ connection();
 app.use('/user', userRoutes);
 app.use('/ressources', ressourcesRoutes);
 app.use('/categories', ressourceCategoriesRoutes);
+app.use('/relationships', relationshipsRoutes);
+
 app.use((err, req, res, next) => {
   errorModule.errorHandler(err,req,res,next)
 })
