@@ -9,6 +9,8 @@ router.get('/', userController.fetchAll);
 
 router.get('/:id', userController.fetch);
 
+router.post('/login', userController.login)
+
 router.post('/', userController.create);
 /*
  router.get('/:id',async (req,res)=>{

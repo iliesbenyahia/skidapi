@@ -37,7 +37,7 @@ try {
   console.log('Connection has been established successfully.');
   await sequelize.sync({force: true});
   //await sequelize.sync();
-} 
+}
 catch (error) {
   console.error('Unable to connect to the database:', error); 
 }

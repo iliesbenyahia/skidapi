@@ -10,9 +10,9 @@ module.exports = {
         try{
             console.log(req.body);
             const category = await ressourceCategoryModel.create({
-                title: req.body.title,
+                label: req.body.label,
             });
-            res.status(200).json(ressource);
+            res.status(200).json(category);
         }catch(error){
             next(error);
         }
