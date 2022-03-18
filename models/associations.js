@@ -9,7 +9,6 @@ const Relationships = require('./relationships');
 const RessourceCategory = require('./ressourceCategory');
 
 function setAssociation(){
-
 // User - Ressources
     User.hasMany(Ressources);
     Ressources.belongsTo(User);

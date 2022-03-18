@@ -10,12 +10,15 @@ module.exports = {
             console.log(req.body);
             const ressource = await ressourcesModel.create(
                 {
-                    title: req.body.title,
-                    type: req.body.fileType,
+                    label: req.body.label,
+                    description: req.body.description,
                     url : req.body.url,
-                    UserId : req.body.userid
+                    RessourceCategoryId : req.body.categoryID,
+                    UserId : req.body.userId,
+
                 }
             )
+            console.log(req.body.relationships);
             res.status(200).json(ressource.id);
         } catch (error) {
             next(error);

@@ -30,10 +30,31 @@ module.exports = {
                 }
             )
             res.status(200).json(user.id);
+        } catch (error) {
+            next(error);
         }
-        catch(error){
+    },
+
+    login : async (req,res, next) => {
+        try {
+            const user = await userModel.findOne(
+                {
+                    where: {
+                        mail: req.body.mail
+                    }
+                });
+            //TODO real auth + security
+            if(user === null){
+                res.status(401).json(-1);
+            }
+            else{
+                res.status(200).json(user.id);
+            }
+        } catch (error) {
             next(error);
         }
     }
+
+
 
 };

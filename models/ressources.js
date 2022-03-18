@@ -3,7 +3,7 @@ const sequelize = db.sequelize
 const DataTypes = db.DataTypes
 
 const Ressources = sequelize.define('Ressources', {
-    title: {
+    label: {
         type: DataTypes.STRING
     },
     description: {

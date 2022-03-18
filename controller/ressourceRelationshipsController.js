@@ -8,7 +8,7 @@ module.exports = {
         try{
             console.log(req.body);
             const relationship = await ressourceRelationshipsModel.create({
-                type: req.body.type,
+                label: req.body.label,
             });
             res.status(200).json(relationship);
         }catch(error){
