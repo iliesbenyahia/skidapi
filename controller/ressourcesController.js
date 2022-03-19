@@ -43,6 +43,20 @@ module.exports = {
         }
     },
 
+    fetchFromCategory: async (req,res,next) => {
+        try{
+            const ressource = await ressourcesModel.findAll({
+                where:
+                    {
+                        RessourceCategoryId: req.params.id,
+                    }
+            });
+            res.status(200).json(ressource);
+        }catch(error){
+            next(error);
+        }
+    },
+
 
     getUploadURL: async (req, res, next) => {
         try{
