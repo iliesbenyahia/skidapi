@@ -21,18 +21,8 @@ module.exports = {
                 }
             )
 
-            console.log(req.body.relationships);
+            //console.log(req.body.relationships);
             await ressource.addRelationships(JSON.parse(req.body.relationships));
-            for(let relationshipid of JSON.parse(req.body.relationships)){
-                console.log("relationshipid : ");
-                console.log(relationshipid);
-
-            }
-
-
-
-
-
 
             //console.log(ressource);
             res.status(200).json(ressource.id);
@@ -73,7 +63,8 @@ module.exports = {
                 where:
                     {
                         RessourceCategoryId: req.params.id,
-                    }
+                    },
+                include: [ressourceCategoryModel, ressourceRelationshipsModel]
             });
             res.status(200).json(ressource);
         }catch(error){
