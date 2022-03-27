@@ -1,8 +1,10 @@
 const ressourcesModel = require('../models/ressources');
 const ressourceCategoryModel = require('../models/ressourceCategory')
+const ressourceRelationshipsModel = require('../models/relationships')
 
 const aws = require("aws-sdk");
 const userModel = require("../models/user");
+const Relationships = require("../models/relationships");
 aws.config.region = 'eu-west-3';
 module.exports = {
     create: async (req, res, next) => {
@@ -18,7 +20,21 @@ module.exports = {
 
                 }
             )
+
             console.log(req.body.relationships);
+            await ressource.addRelationships(JSON.parse(req.body.relationships));
+            for(let relationshipid of JSON.parse(req.body.relationships)){
+                console.log("relationshipid : ");
+                console.log(relationshipid);
+
+            }
+
+
+
+
+
+
+            //console.log(ressource);
             res.status(200).json(ressource.id);
         } catch (error) {
             next(error);
@@ -27,8 +43,16 @@ module.exports = {
 
     fetch : async (req, res, next) => {
         try {
-            const ressource = await ressourcesModel.findByPk(req.params.id);
-            res.status(200).json(ressource.id);
+            const ressource = await ressourcesModel.findOne({
+                where: { id: req.params.id },
+                include: [ressourceCategoryModel, ressourceRelationshipsModel]
+
+
+            });
+            //const category = await ressourceCategoryModel.findByPk(ressource.RessourceCategoryId);
+            //const relationships = await ressourceRela
+            //ressource.setDataValue('RessourceCategoryLabel',category.label);
+            res.status(200).json(ressource);
         }catch(error){
             next(error);
         }
