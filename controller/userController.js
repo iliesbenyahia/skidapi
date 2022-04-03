@@ -41,16 +41,15 @@ module.exports = {
             const user = await userModel.findOne(
                 {
                     where: {
-                        mail: req.body.mail
+                        mail: req.body.mail,
+                        password: req.body.password
                     }
                 });
-            //TODO real auth + security
-            if(user === null){
-                res.status(401).json(-1);
-            }
-            else{
-                res.status(200).json(user.id);
-            }
+            //TODO security
+                var res2 = user.toJSON();
+                delete res2.password;
+                res.status(200).json(res2);
+
         } catch (error) {
             next(error);
         }
