@@ -1,6 +1,7 @@
 const userModel = require('../models/user');
 
 module.exports = {
+
     fetchAll : async (req, res, next) => {
         try{
             const users = await userModel.findAll();
@@ -54,7 +55,4 @@ module.exports = {
             next(error);
         }
     }
-
-
-
 };

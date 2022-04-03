@@ -7,7 +7,7 @@ const Ressources = sequelize.define('Ressources', {
         type: DataTypes.STRING
     },
     description: {
-        type: DataTypes.STRING
+        type: DataTypes.TEXT
     },
     url : {
         type : DataTypes.STRING
