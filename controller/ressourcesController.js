@@ -15,6 +15,7 @@ module.exports = {
                     label: req.body.label,
                     description: req.body.description,
                     url : req.body.url,
+                    filename: req.body.filename,
                     RessourceCategoryId : req.body.categoryID,
                     UserId : req.body.userId,
 
