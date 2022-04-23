@@ -5,6 +5,7 @@ const ressourceRelationshipsModel = require('../models/relationships')
 const aws = require("aws-sdk");
 const userModel = require("../models/user");
 const Relationships = require("../models/relationships");
+const {sequelize} = require("../db");
 aws.config.region = 'eu-west-3';
 module.exports = {
     create: async (req, res, next) => {
@@ -17,7 +18,7 @@ module.exports = {
                     url : req.body.url,
                     filename: req.body.filename,
                     RessourceCategoryId : req.body.categoryID,
-                    UserId : req.body.userId,
+                    UserId : req.body.userid,
 
                 }
             )
@@ -38,11 +39,18 @@ module.exports = {
                 where: { id: req.params.id },
                 include: [ressourceCategoryModel, ressourceRelationshipsModel]
 
-
             });
             //const category = await ressourceCategoryModel.findByPk(ressource.RessourceCategoryId);
             //const relationships = await ressourceRela
             //ressource.setDataValue('RessourceCategoryLabel',category.label);
+            console.log(req.body);
+            if(req.params.uid != null && !isNaN(req.params.uid)) {
+                const [results, metadata] = await sequelize.query('SELECT * FROM favourites WHERE "favourites"."RessourceId" = ' + req.params.id + ' AND "favourites"."UserId" = ' + req.params.uid);
+                console.log(results);
+                if(results.length >= 1){
+                    ressource.setDataValue('isFav',1);
+                }
+            }
             res.status(200).json(ressource);
         }catch(error){
             next(error);
@@ -51,8 +59,19 @@ module.exports = {
 
     fetchAll: async (req,res,next) => {
         try{
-            const ressource = await ressourcesModel.findAll();
-            res.status(200).json(ressource);
+            const ressources = await ressourcesModel.findAll();
+
+            for(ressource of ressources){
+                if(req.params.uid != null && !isNaN(req.params.uid)) {
+                    const [results, metadata] = await sequelize.query('SELECT * FROM favourites WHERE "favourites"."RessourceId" = ' + ressource.dataValues["id"] + ' AND "favourites"."UserId" = ' + req.params.uid);
+                    console.log(results);
+                    if(results.length >= 1){
+                        ressource.dataValues["isFav"] = 1;
+                    }
+                }
+
+            }
+            res.status(200).json(ressources);
         }catch(error){
             next(error);
         }
@@ -60,14 +79,24 @@ module.exports = {
 
     fetchFromCategory: async (req,res,next) => {
         try{
-            const ressource = await ressourcesModel.findAll({
+            const ressources = await ressourcesModel.findAll({
                 where:
                     {
                         RessourceCategoryId: req.params.id,
                     },
                 include: [ressourceCategoryModel, ressourceRelationshipsModel]
             });
-            res.status(200).json(ressource);
+            for(ressource of ressources){
+                if(req.params.uid != null && !isNaN(req.params.uid)) {
+                    const [results, metadata] = await sequelize.query('SELECT * FROM favourites WHERE "favourites"."RessourceId" = ' + ressource.dataValues["id"] + ' AND "favourites"."UserId" = ' + req.params.uid);
+                    console.log(results);
+                    if(results.length >= 1){
+                        ressource.dataValues["isFav"] = 1;
+                    }
+                }
+
+            }
+            res.status(200).json(ressources);
         }catch(error){
             next(error);
         }
@@ -96,6 +125,42 @@ module.exports = {
                 res.status(200).json(returnData);
             });
         }catch (error){
+            next(error);
+        }
+    },
+
+    addToFavourites: async (req,res,next) => {
+        try {
+            const ressource = await ressourcesModel.findOne({
+                where: { id: req.body.ressourceid },
+            });
+            const user = await userModel.findOne({
+                where: { id: req.body.userid },
+            });
+            await ressource.addUser(user);
+            //const category = await ressourceCategoryModel.findByPk(ressource.RessourceCategoryId);
+            //const relationships = await ressourceRela
+            //ressource.setDataValue('RessourceCategoryLabel',category.label);
+            res.status(200).json(ressource);
+        }catch(error){
+            next(error);
+        }
+    },
+
+    removeFromFavourites: async (req,res,next) => {
+        try {
+            const ressource = await ressourcesModel.findOne({
+                where: { id: req.body.ressourceid },
+            });
+            const user = await userModel.findOne({
+                where: { id: req.body.userid },
+            });
+            await ressource.removeUser(user);
+            //const category = await ressourceCategoryModel.findByPk(ressource.RessourceCategoryId);
+            //const relationships = await ressourceRela
+            //ressource.setDataValue('RessourceCategoryLabel',category.label);
+            res.status(200).json(ressource);
+        }catch(error){
             next(error);
         }
     },

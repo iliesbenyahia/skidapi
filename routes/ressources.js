@@ -17,9 +17,11 @@ router.get('/:id', ressourcesController .fetch);
 // Ressources
 router.post('/upload', ressourcesController.getUploadURL);
 router.post('/', ressourcesController.create);
-router.get('/', ressourcesController.fetchAll);
-router.get('/:id',ressourcesController.fetch);
-router.get('/category/:id',ressourcesController.fetchFromCategory);
+router.get('/all/:uid?', ressourcesController.fetchAll);
+router.get('/:id/:uid?',ressourcesController.fetch);
+router.get('/category/:id/:uid?',ressourcesController.fetchFromCategory);
+router.post('/fav',ressourcesController.addToFavourites);
+router.delete('/fav',ressourcesController.removeFromFavourites);
 
 
 /*
