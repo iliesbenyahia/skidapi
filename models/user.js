@@ -3,10 +3,10 @@ const sequelize = db.sequelize
 const DataTypes = db.DataTypes
 
 const User = sequelize.define('User', {
-  firstName: {
+  firstname: {
     type: DataTypes.STRING
   },
-  lastName: {
+  lastname: {
     type: DataTypes.STRING
   },
   mail: {

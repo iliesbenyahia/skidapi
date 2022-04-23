@@ -12,6 +12,8 @@ function setAssociation(){
 // User - Ressources
     User.hasMany(Ressources);
     Ressources.belongsTo(User);
+    Ressources.belongsToMany(User, {through: 'favourites'});
+    User.belongsToMany(Ressources, {through: 'favourites'});
 // Ressources - Relationships
     Ressources.belongsToMany(Relationships, {through: 'RessourcesRelationships'});
     Relationships.belongsToMany(Ressources, {through: 'RessourcesRelationships'});

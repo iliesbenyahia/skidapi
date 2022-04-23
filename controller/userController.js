@@ -24,8 +24,8 @@ module.exports = {
         try {
             const user = await userModel.create(
                 {
-                    firstName: req.body.firstName,
-                    lastName: req.body.lastName,
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
                     mail: req.body.mail,
                     password: req.body.password
                 }
