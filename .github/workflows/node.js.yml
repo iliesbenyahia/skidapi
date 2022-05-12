@@ -29,12 +29,14 @@ jobs:
     - run: npm test
 
   cd:
+    need: ci
     name: "C.D"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Deploy to Heroku
-        uses: behe/heroku-build@v1
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
-          app-name: "apiressourcesrel"
-          api-key: "${{secrets.HEROKU_API_KEY}}"
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "apiressourcesrel" #Must be unique in Heroku
+          heroku_email: "ilies.benyahia@free.fr"
