@@ -59,18 +59,25 @@ module.exports = {
 
     fetchAll: async (req,res,next) => {
         try{
-            const ressources = await ressourcesModel.findAll();
+            const ressourcesData = await ressourcesModel.findAll(
+                {
+                    include: [ressourceCategoryModel, ressourceRelationshipsModel]
 
-            for(ressource of ressources){
-                if(req.params.uid != null && !isNaN(req.params.uid)) {
-                    const [results, metadata] = await sequelize.query('SELECT * FROM favourites WHERE "favourites"."RessourceId" = ' + ressource.dataValues["id"] + ' AND "favourites"."UserId" = ' + req.params.uid);
-                    console.log(results);
-                    if(results.length >= 1){
-                        ressource.dataValues["isFav"] = 1;
+                }
+            );
+            let ressources = [];
+            if(req.params.uid == null){
+                res.status(200).json(ressourcesData);
+            }
+            else{
+                for(ressource of ressourcesData){
+                    if (ressource.dataValues["UserId"] == req.params.uid) {
+                        ressources.push(ressource);
                     }
                 }
-
+                res.status(200).json(ressources);
             }
+
             res.status(200).json(ressources);
         }catch(error){
             next(error);
@@ -97,6 +104,15 @@ module.exports = {
 
             }
             res.status(200).json(ressources);
+        }catch(error){
+            next(error);
+        }
+    },
+
+    fetchFromUser: async (req, res, next) => {
+        try{
+
+            res.status(200).json("heelo");
         }catch(error){
             next(error);
         }
@@ -164,6 +180,30 @@ module.exports = {
             next(error);
         }
     },
+
+    fetchAllFavourites : async (req,res,next) => {
+        try{
+            const ressources = await ressourcesModel.findAll({include: [ressourceCategoryModel, ressourceRelationshipsModel]});
+            var ressourcesCollection = [];
+            for(ressource of ressources){
+                if(req.body.uid != null && !isNaN(req.body.uid)) {
+                    const [results, metadata] = await sequelize.query('SELECT * FROM favourites WHERE "favourites"."RessourceId" = ' + ressource.dataValues["id"] + ' AND "favourites"."UserId" = ' + req.body.uid);
+                    console.log(results);
+                    if(results.length >= 1){
+                        ressource.dataValues["isFav"] = 1;
+                        ressourcesCollection.push(ressource)
+                    }
+                }
+
+            }
+
+            res.status(200).json(ressourcesCollection);
+        }catch(error){
+            next(error);
+        }
+    }
+
+
 
 }
 
