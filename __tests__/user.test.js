@@ -1,3 +1,3 @@
 test("test qui passe toujours", () => {
-    expect(true).toBe(true);
+    expect(true).toBe(false);
 })
