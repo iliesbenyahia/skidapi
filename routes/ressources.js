@@ -18,10 +18,13 @@ router.get('/:id', ressourcesController .fetch);
 router.post('/upload', ressourcesController.getUploadURL);
 router.post('/', ressourcesController.create);
 router.get('/all/:uid?', ressourcesController.fetchAll);
-router.get('/:id/:uid?',ressourcesController.fetch);
 router.get('/category/:id/:uid?',ressourcesController.fetchFromCategory);
+router.get('/:id/:uid?',ressourcesController.fetch);
+
 router.post('/fav',ressourcesController.addToFavourites);
+router.post('/favofuser',ressourcesController.fetchAllFavourites);
 router.delete('/fav',ressourcesController.removeFromFavourites);
+
 
 
 /*

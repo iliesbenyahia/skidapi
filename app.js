@@ -31,17 +31,28 @@ app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
+
+async function sync(forcesync = false) {
+  try {
+    await sequelize.sync({force: forcesync});
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
+
 async function connection (){
 try {
   await sequelize.authenticate();
   console.log('Connection has been established successfully.');
-  //await sequelize.sync({force: true});
-  await sequelize.sync();
+  await sync();
 }
 catch (error) {
   console.error('Unable to connect to the database:', error); 
 }
 }
+
+
+
 
 connection(); 
 //fetch form data from the request  
@@ -87,6 +98,11 @@ app.get('/sign-s3', (req, res) => {
 
 });
 //showing the port on which server is running
+
+app.post('/syncforce', (req, res) => {
+  sync(true);
+});
+
 app.listen(port,()=>console.log(`server running at port ${port}`));
 
   
