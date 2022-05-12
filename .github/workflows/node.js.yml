@@ -29,7 +29,6 @@ jobs:
     - run: npm test
 
   cd:
-    need: ci
     name: "C.D"
     runs-on: ubuntu-latest
     steps:
