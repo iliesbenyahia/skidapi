@@ -10,37 +10,35 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  CI:
+    build:
 
-    runs-on: ubuntu-latest
+      runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+      strategy:
+        matrix:
+          node-version: [12.x, 14.x, 16.x]
+          # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
-    
-    - name: Heroku Action
-  # You may pin to the exact commit or the version.
-  # uses: CDNievas/heroku-action@c9cf9c85571e67583e44ec92c0d1113f66b0e838
-      uses: CDNievas/heroku-action@v1.0
-      with:
-        # Used for authentication. You can find it in your heroku homepage account settings
-        heroku_api_key: 18574d52-e964-421f-abf9-ae75c6476636
-        heroku_email: ilies.benyahia@free.fr
-        # The appname to use for deploying/updating
-        heroku_app_name: apiressourcesrel
-        # The branch that you would like to deploy to Heroku
-        branch: main
-        dynamicFiles: false
+      steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
 
+
+  CD:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Deploy to Heroku
+          uses: behe/heroku-build@v1
+          with:
+            app-name: "apiressourcesrel"
+            api-key: "${{secrets.HEROKU_API_KEY}}"
