@@ -10,7 +10,6 @@ on:
     branches: [ main ]
 
 jobs:
-  jobci:
     build:
 
       runs-on: ubuntu-latest
@@ -31,14 +30,3 @@ jobs:
       - run: npm run build --if-present
       - run: npm test
 
-
-  jobcd:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Deploy to Heroku
-          uses: behe/heroku-build@v1
-          with:
-            app-name: "apiressourcesrel"
-            api-key: "${{secrets.HEROKU_API_KEY}}"
