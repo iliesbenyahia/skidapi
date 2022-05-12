@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:
-  CI:
+  jobci:
     build:
 
       runs-on: ubuntu-latest
@@ -32,7 +32,7 @@ jobs:
       - run: npm test
 
 
-  CD:
+  jobcd:
     build:
       runs-on: ubuntu-latest
       steps:
