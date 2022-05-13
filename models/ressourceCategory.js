@@ -1,6 +1,6 @@
 const db = require('../db')
 const sequelize = db.sequelize
-const DataTypes = db.DataTypes
+const { DataTypes } = require('sequelize')
 
 const RessourceCategory = sequelize.define('RessourceCategory', {
     label: {
