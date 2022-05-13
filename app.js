@@ -56,7 +56,11 @@ app.get('/sign-s3', (req, res) => {
 });
 
 app.get('/toto', (req, res) => {
-  res.write("toto");
+  res.json("toto");
+})
+
+app.get('/leo', (req, res) => {
+  res.json("je t'aime leo");
 })
 app.post('/syncforce', async (req, res) => {
   await sync(true);
