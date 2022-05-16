@@ -62,6 +62,12 @@ app.get('/toto', (req, res) => {
 app.get('/leo', (req, res) => {
   res.json("je t'aime leo");
 })
+
+app.get('/testci', (req, res) => {
+  res.json("ça marche meme depuis mon fixe !");
+})
+
+
 app.post('/syncforce', async (req, res) => {
   await sync(true);
 });
