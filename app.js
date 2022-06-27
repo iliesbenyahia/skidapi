@@ -55,20 +55,8 @@ app.get('/sign-s3', (req, res) => {
 
 });
 
-app.get('/toto', (req, res) => {
-  res.json("toto");
-})
-
-app.get('/testci', (req, res) => {
-  res.json("ça marche meme depuis mon fixe !");
-})
-
-app.get('/dylan', (req, res) => {
-  res.json("coucou Dylan, comment va ta famille ?");
-})
-
-app.get('/florence', (req, res) => {
-  res.json("Coucou Florence, comment va ta famille ?");
+app.get('/test', (req, res) => {
+  res.json("test");
 })
 
 app.post('/syncforce', async (req, res) => {

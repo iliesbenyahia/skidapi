@@ -12,6 +12,7 @@ router.get('/:id', userController.fetch);
 router.post('/login', userController.login)
 
 router.post('/', userController.create);
+router.delete('/', userController.delete);
 /*
  router.get('/:id',async (req,res)=>{
      res.send(await userController.fetch(req.params.id));
