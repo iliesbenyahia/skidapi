@@ -67,6 +67,10 @@ app.get('/dylan', (req, res) => {
   res.json("coucou Dylan, comment va ta famille ?");
 })
 
+app.get('/florence', (req, res) => {
+  res.json("Coucou Florence, comment va ta famille ?");
+})
+
 app.post('/syncforce', async (req, res) => {
   await sync(true);
 });
