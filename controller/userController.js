@@ -36,6 +36,19 @@ module.exports = {
         }
     },
 
+    delete : async (req,res, next) => {
+        try {
+            const user = await userModel.destroy(
+                {
+                    where : { id: req.body.id }
+                }
+            )
+            res.status(200).json(user.id);
+        } catch (error) {
+            next(error);
+        }
+    },
+
     login : async (req,res, next) => {
         try {
             const user = await userModel.findOne(
