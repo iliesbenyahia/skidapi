@@ -59,6 +59,10 @@ app.get('/test', (req, res) => {
   res.json("test");
 })
 
+
+app.get('/route', (req, res) => {
+  res.json("route");
+})
 app.post('/syncforce', async (req, res) => {
   await sync(true);
 });
